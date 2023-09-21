@@ -58,7 +58,7 @@ bool search(struct TrieNode *root,string key)
 	{
 		int index = key[i]-'a';
 		
-		if(!temp->child[index] && i==key.length()-1)
+		if(!temp->child[index] && i>=key.length()-1)
 		{
 			break;
 		}

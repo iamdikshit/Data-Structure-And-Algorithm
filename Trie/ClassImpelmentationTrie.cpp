@@ -18,6 +18,8 @@ class TrieNode{
 				this->child[i] = NULL;
 			}
 		}
+		
+		
 
 		void Insert(string word)
 		{
@@ -34,6 +36,7 @@ class TrieNode{
 				}
 				temp = temp->child[index];
 			}
+			temp->isEndString = true;
 		}
 
 		// search function
@@ -43,12 +46,14 @@ class TrieNode{
 			for(int i=0; i<word.length(); i++)
 			{
 				int index = word[i] - 'a';
-				if(!temp->child[index]){
+				if(temp->child[index] && i<=word.length()-1){
+					temp = temp->child[index];
+				}
+				else{
 					return false;
 				}
-				temp = temp->child[index];
 			}
-			return true;
+			return temp->isEndString;
 		}
 
 		// search word with starting prefix
@@ -77,12 +82,14 @@ int main()
 	string word,key,key2;
 	cin>>word;
 	root->Insert(word);
-	cout<<"\nEnter prefix to search:";
+	cout<<"\nEnter word to search:";
 	cin>>key;
 	if(root->search(key))
 		cout<<key<<" is present;"<<endl;
 	else
 		cout<<key<<" is not present"<<endl;
+		
+	cout<<"\nEnter prefix to search:";
 	cin>>key2;
 	if(root->startWith(key2))
 		cout<<key2<<" is present;"<<endl;
